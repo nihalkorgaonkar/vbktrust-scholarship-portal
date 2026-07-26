@@ -23,16 +23,20 @@ const AdminDashboard = () => {
     }
 
     try {
-      const { data, error } = await supabase
-        .from('applications')
-        .select(`
-          id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path,
-          users ( full_name, email, phone_number, mother_tongue, family_occupation, neet_roll_number )
-        `);
+      const response = await fetch('/api/applications', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       
-      if (error) throw error;
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          navigate('/admin');
+        }
+        throw new Error('Failed to fetch');
+      }
+
+      const data = await response.json();
       
-      // Flatten the joined data to match the old structure
+      // Flatten the joined data to match the structure
       const formattedData = data.map(app => ({
         ...app,
         full_name: app.users?.full_name,
@@ -46,10 +50,6 @@ const AdminDashboard = () => {
       setApplications(formattedData);
     } catch (err) {
       console.error('Failed to fetch applications', err);
-      // If unauthorized or error, maybe log them out
-      if (err.code === 'PGRST301' || err.message?.includes('JWT')) {
-        navigate('/admin');
-      }
     } finally {
       setLoading(false);
     }
@@ -57,12 +57,17 @@ const AdminDashboard = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const { error } = await supabase
-        .from('applications')
-        .update({ status: newStatus })
-        .eq('id', id);
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('/api/applications', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id, status: newStatus })
+      });
 
-      if (error) throw error;
+      if (!response.ok) throw new Error('Failed to update');
       fetchApplications();
     } catch (err) {
       console.error('Failed to update status', err);
