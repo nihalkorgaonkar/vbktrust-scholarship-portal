@@ -47,16 +47,6 @@ export default async function handler(req, res) {
 
     if (!fetchError && appData && appData.users) {
       try {
-        let transporter = nodemailer.createTransport({
-          host: 'smtp.titan.email',
-          port: 587,
-          secure: false, // TLS requires secure: false on port 587
-          auth: {
-            user: process.env.EMAIL_USER || 'admin@vbktrust.org',
-            pass: process.env.EMAIL_PASS
-          }
-        });
-
         const subject = status === 'Approved' 
           ? "Scholarship Application Approved!" 
           : "Update on your Scholarship Application";
@@ -65,12 +55,25 @@ export default async function handler(req, res) {
           ? `Dear ${appData.users.full_name},\n\nCongratulations! Your application for the Vasudeo Korgaonkar Trust MBBS Scholarship has been Approved.\n\nOur team will contact you shortly regarding the next steps for the scholarship disbursement.\n\nRegards,\nVasudeo Korgaonkar Trust`
           : `Dear ${appData.users.full_name},\n\nThank you for applying for the Vasudeo Korgaonkar Trust MBBS Scholarship. After careful review, we regret to inform you that your application was not selected for this cycle.\n\nWe wish you the best in your medical studies and future endeavors.\n\nRegards,\nVasudeo Korgaonkar Trust`;
 
-        await transporter.sendMail({
-          from: '"Vasudeo Korgaonkar Trust" <admin@vbktrust.org>',
-          to: appData.users.email,
-          subject: subject,
-          text: text
+        const resendResponse = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+          },
+          body: JSON.stringify({
+            from: 'Vasudeo Korgaonkar Trust <admin@vbktrust.org>',
+            to: [appData.users.email],
+            subject: subject,
+            text: text
+          })
         });
+
+        if (!resendResponse.ok) {
+          const errorData = await resendResponse.json();
+          throw new Error(errorData.message || 'Resend API rejected the email');
+        }
+
         return res.status(200).json({ success: true, emailSent: true });
       } catch (emailError) {
         console.error('Failed to send status email:', emailError);
