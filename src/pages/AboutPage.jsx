@@ -6,7 +6,7 @@ const AboutPage = () => {
     { name: 'Mr. Sharad Vasudeo Korgaonkar', role: 'Chairman' },
     { name: 'Mrs. Archana Sachin Patne', role: 'Secretary' },
     { name: 'Mrs. Ashwini Amol Harmalkar', role: 'Treasurer' },
-    { name: 'Mr. Bagesh Shripad Mane', role: 'Trustee' }
+    { name: 'Mr. Bhagyesh Shripad Mane', role: 'Trustee' }
   ];
 
   const advisors = [
