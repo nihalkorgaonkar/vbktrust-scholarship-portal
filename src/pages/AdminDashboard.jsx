@@ -91,6 +91,12 @@ const AdminDashboard = () => {
       });
 
       if (!response.ok) throw new Error('Failed to update');
+      
+      const data = await response.json();
+      if (data.success && data.emailSent === false) {
+        alert("The application status was updated, but the email failed to send. Error: " + data.error);
+      }
+      
       fetchApplications();
     } catch (err) {
       console.error('Failed to update status', err);
