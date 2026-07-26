@@ -1,0 +1,201 @@
+/* ===== ABOUT PAGE - Premium Spacious Design ===== */
+
+/* Hero Banner */
+.about-hero {
+  background: linear-gradient(135deg, #054479 0%, #0a5a9e 50%, #054479 100%);
+  color: white;
+  padding: 6rem 0;
+  margin-bottom: 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(246, 200, 76, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(75, 141, 242, 0.1) 0%, transparent 50%);
+}
+
+.about-hero .hero-title {
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 1rem;
+  position: relative;
+  letter-spacing: -0.5px;
+}
+
+.about-hero .hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+  font-family: var(--font-body);
+  position: relative;
+  font-weight: 400;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+  margin: 0.75rem auto 0;
+  border-radius: 2px;
+}
+
+/* Mission Section */
+.mission-section {
+  padding: 5rem 0;
+}
+
+.mission-card {
+  max-width: 780px;
+  margin: 2rem auto 0;
+  padding: 3rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+.section-text {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: var(--secondary-text);
+  text-align: center;
+  font-weight: 400;
+}
+
+/* Board Sections */
+.board-section {
+  padding: 5rem 0 3rem;
+  background-color: var(--background-light);
+  margin: 0 -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.advisors-section {
+  padding: 5rem 0 4rem;
+}
+
+/* Members Grid */
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.advisors-section .members-grid {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 900px;
+}
+
+/* Member Cards */
+.member-card {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.member-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(5, 68, 121, 0.1);
+}
+
+/* Avatars */
+.member-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #054479, #4b8df2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-heading);
+  box-shadow: 0 4px 15px rgba(5, 68, 121, 0.2);
+  letter-spacing: 1px;
+}
+
+.advisor-avatar {
+  background: linear-gradient(135deg, #0a5a9e, #4b8df2);
+  box-shadow: 0 4px 15px rgba(75, 141, 242, 0.2);
+}
+
+/* Names & Roles */
+.member-name {
+  font-size: 1.15rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.member-role {
+  font-size: 0.8rem;
+  color: var(--accent-hover);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 4rem 0;
+  }
+  
+  .about-hero .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .mission-section {
+    padding: 3rem 0;
+  }
+  
+  .mission-card {
+    padding: 2rem;
+  }
+  
+  .members-grid,
+  .advisors-section .members-grid {
+    grid-template-columns: 1fr;
+    max-width: 350px;
+  }
+  
+  .board-section,
+  .advisors-section {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+}

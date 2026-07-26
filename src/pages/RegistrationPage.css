@@ -1,0 +1,233 @@
+/* ===== REGISTRATION PAGE - Premium Spacious Design ===== */
+
+.registration-page {
+  padding: 4rem 1.5rem 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+  background-color: var(--background-light);
+}
+
+.registration-card {
+  width: 100%;
+  max-width: 620px;
+  background-color: var(--background-white);
+  border-top: 5px solid var(--primary-color);
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+.registration-card h2 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.3px;
+}
+
+.subtitle-text {
+  color: var(--secondary-text);
+  font-family: var(--font-body);
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+}
+
+/* Wizard Progress */
+.wizard-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+  padding: 0 2rem;
+}
+
+.progress-step {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--background-light);
+  border: 2.5px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--secondary-text);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.progress-step.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 3px 10px rgba(5, 68, 121, 0.25);
+}
+
+.progress-line {
+  height: 3px;
+  width: 80px;
+  background-color: var(--border-color);
+  margin: 0 6px;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+  border-radius: 2px;
+}
+
+.progress-line.active {
+  background-color: var(--primary-color);
+}
+
+/* Step Content */
+.wizard-step h3 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
+
+.step-desc {
+  color: var(--secondary-text);
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Form Groups (extra breathing room) */
+.wizard-step .form-group {
+  margin-bottom: 1.75rem;
+}
+
+/* Upload Zones */
+.upload-zone {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 2px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  background-color: var(--background-white);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.upload-zone:hover {
+  border-color: var(--secondary-color);
+  background-color: rgba(75, 141, 242, 0.02);
+}
+
+.upload-zone.success {
+  border-color: var(--success-color);
+  background-color: rgba(16, 185, 129, 0.04);
+  border-style: solid;
+}
+
+.upload-icon {
+  color: var(--secondary-color);
+  flex-shrink: 0;
+}
+
+.upload-zone.success .upload-icon {
+  color: var(--success-color);
+}
+
+.upload-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.upload-title {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.3rem;
+  font-size: 1.02rem;
+}
+
+.upload-subtitle {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+}
+
+.success-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--success-color);
+  font-size: 0.85rem;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+/* Error Message */
+.error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  background: rgba(239, 68, 68, 0.06);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  margin-bottom: 1.5rem;
+}
+
+/* Spacing utilities */
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1.25rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mb-4 { margin-bottom: 1rem; }
+.py-8 { padding: 2rem 0; }
+.text-center { text-align: center; }
+.text-success { color: var(--success-color); }
+
+/* Fade In Animation */
+.fade-in {
+  animation: fadeIn 0.35s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Success Step */
+.step-content {
+  padding: 3rem 1rem;
+}
+
+.step-content h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .registration-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .wizard-progress {
+    margin-bottom: 2rem;
+  }
+  
+  .progress-line {
+    width: 50px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+  }
+}

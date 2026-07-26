@@ -1,0 +1,223 @@
+/* ===== CONTACT PAGE - Premium Spacious Design ===== */
+
+/* Hero Banner */
+.contact-hero {
+  background: linear-gradient(135deg, #054479 0%, #0a5a9e 50%, #054479 100%);
+  color: white;
+  padding: 6rem 0;
+  margin-bottom: 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(246, 200, 76, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(75, 141, 242, 0.1) 0%, transparent 50%);
+}
+
+.contact-hero .hero-title {
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 1rem;
+  position: relative;
+  letter-spacing: -0.5px;
+}
+
+.contact-hero .hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+  font-family: var(--font-body);
+  position: relative;
+  font-weight: 400;
+}
+
+/* Contact Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+  padding: 4rem 0 5rem;
+}
+
+/* Info Panel (Dark navy) */
+.contact-info-panel {
+  padding: 3rem;
+  background: linear-gradient(135deg, #054479 0%, #03325c 100%);
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(5, 68, 121, 0.15);
+  border: none;
+  align-self: start;
+}
+
+.contact-info-panel h2 {
+  color: white !important;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info-panel .intro-text {
+  color: #b0c4de;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Info Blocks */
+.info-block {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  align-items: flex-start;
+}
+
+.info-block:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: rgba(246, 200, 76, 0.12);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.info-content h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.info-content p,
+.info-content a {
+  color: #b0c4de;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-decoration: none;
+}
+
+.info-content a:hover {
+  text-decoration: underline;
+  color: var(--accent-color);
+}
+
+/* Form Panel */
+.contact-form-panel {
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+.contact-form-panel h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-form-panel .form-subtitle {
+  color: var(--secondary-text);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.contact-form-panel .form-group {
+  margin-bottom: 1.75rem;
+}
+
+.contact-form-panel .form-input {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-color);
+  font-size: 0.95rem;
+}
+
+.contact-form-panel .form-input:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(75, 141, 242, 0.12);
+}
+
+.contact-form-panel textarea.form-input {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.btn-send {
+  width: 100%;
+  padding: 1rem;
+  background: var(--accent-color);
+  color: #1F2937;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.btn-send:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(246, 200, 76, 0.3);
+}
+
+/* Success Message */
+.contact-success {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.contact-success .success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.contact-success h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.contact-success p {
+  color: var(--secondary-text);
+  margin-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-hero {
+    padding: 4rem 0;
+  }
+
+  .contact-hero .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 0 3rem;
+  }
+  
+  .contact-info-panel,
+  .contact-form-panel {
+    padding: 2rem;
+  }
+}
