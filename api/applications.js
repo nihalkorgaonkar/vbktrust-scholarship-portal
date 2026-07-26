@@ -48,7 +48,9 @@ export default async function handler(req, res) {
     if (!fetchError && appData && appData.users) {
       try {
         let transporter = nodemailer.createTransport({
-          service: 'gmail',
+          host: 'smtp.titan.email',
+          port: 465,
+          secure: true,
           auth: {
             user: process.env.EMAIL_USER || 'admin@vbktrust.org',
             pass: process.env.EMAIL_PASS
