@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { GraduationCap, HeartHandshake, BookOpen } from 'lucide-react';
 import './LandingPage.css';
 
+import founderImg from '../assets/founder.png';
+
 const LandingPage = () => {
   const navigate = useNavigate();
 
@@ -55,18 +57,20 @@ const LandingPage = () => {
       {/* About Section */}
       <section id="about" className="about">
         <div className="container about-content">
-          <div className="about-image-placeholder">
-            <div className="placeholder-text">Campus / Medical Students Imagery</div>
+          <div className="about-image-wrapper">
+            <img src={founderImg} alt="Vasudeo Balkrishna Korgaonkar" className="about-image" />
           </div>
           <div className="about-text">
-            <h2 className="section-title">The Legacy of Vasudeo Korgaonkar</h2>
+            <h2 className="section-title">Dedicated to Vasudeo Korgaonkar</h2>
             <p>
-              The Vasudeo Korgaonkar Trust was established with a singular, noble vision: to ensure that the brightest minds have the opportunity to heal the world, regardless of their financial background.
+              <strong>Vasudeo Balkrishna Korgaonkar (1901-1972)</strong> was a dedicated ex-municipal corporator, freedom fighter, and Congressman who truly loved his country. He served as the Chairman of the Improvements Committee and held the esteemed government post of Justice of Peace (Addhikar).
             </p>
             <p>
-              Recognizing the immense societal value of doctors and the often prohibitive costs of an MBBS education, the Trust dedicates its resources entirely to funding medical students. We believe that investing in a medical student today is an investment in the health and well-being of countless communities tomorrow.
+              During the British era, he fought courageously for the nation's independence, even serving time unfairly in Nashik Jail. An extremely disciplined and principled social worker, he fought for his country until the end. 
             </p>
-            <button className="btn btn-primary mt-4">Read Full History</button>
+            <p>
+              His commitment to upliftment extended to his own family, as he helped the entire Korgaonkar ancestry secure education and occupation in Mumbai. The Vasudeo Korgaonkar Trust carries forward his noble legacy by ensuring the brightest minds have the opportunity to heal the world, regardless of their financial background.
+            </p>
           </div>
         </div>
       </section>

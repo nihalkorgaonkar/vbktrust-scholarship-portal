@@ -117,17 +117,20 @@
   align-items: center;
 }
 
-.about-image-placeholder {
-  background-color: var(--background-light);
-  border: 2px dashed var(--border-color);
-  border-radius: 1rem;
-  height: 450px;
+.about-image-wrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: var(--secondary-text);
-  font-weight: 500;
-  font-size: 1.25rem;
+  align-items: center;
+}
+
+.about-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 450px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border: 8px solid white;
+  object-fit: cover;
 }
 
 .about-text p {
@@ -154,8 +157,7 @@
   .about-content {
     grid-template-columns: 1fr;
   }
-  .about-image-placeholder {
-    height: 300px;
+  .about-image-wrapper {
     order: -1;
   }
 }
