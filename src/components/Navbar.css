@@ -1,15 +1,16 @@
 .navbar {
-  background-color: var(--background-white);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  padding: 1rem 0;
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 .navbar-inner {
-  height: 70px;
+  height: 72px;
 }
 
 .navbar-logo {
@@ -24,9 +25,11 @@
 
 .logo-vk {
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--primary-color);
+  background: linear-gradient(135deg, #054479, #4b8df2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
 }
 
@@ -35,7 +38,8 @@
   font-size: 12px;
   font-weight: 600;
   color: var(--secondary-color);
-  letter-spacing: 3px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
 .navbar-links {
@@ -49,10 +53,27 @@
   font-weight: 600;
   color: var(--secondary-text);
   transition: color 0.2s;
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover {
   color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .mobile-toggle {

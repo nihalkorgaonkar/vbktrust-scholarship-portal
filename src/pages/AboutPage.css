@@ -1,11 +1,10 @@
-/* ===== ABOUT PAGE - Premium Spacious Design ===== */
+/* ===== ABOUT PAGE - Premium Polished Design ===== */
 
 /* Hero Banner */
 .about-hero {
-  background: linear-gradient(135deg, #054479 0%, #0a5a9e 50%, #054479 100%);
+  background: linear-gradient(135deg, #032b4d 0%, #054479 40%, #0a5a9e 70%, #4b8df2 100%);
   color: white;
   padding: 6rem 0;
-  margin-bottom: 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -15,8 +14,8 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(246, 200, 76, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(75, 141, 242, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 80%, rgba(246, 200, 76, 0.06) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(75, 141, 242, 0.08) 0%, transparent 50%);
 }
 
 .about-hero .hero-title {
@@ -28,8 +27,8 @@
 }
 
 .about-hero .hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--accent-color);
+  font-size: 1.2rem;
+  color: rgba(246, 200, 76, 0.9);
   font-family: var(--font-body);
   position: relative;
   font-weight: 400;
@@ -61,12 +60,24 @@
 
 .mission-card {
   max-width: 780px;
-  margin: 2rem auto 0;
-  padding: 3rem;
+  margin: 2.5rem auto 0;
+  padding: 3rem 3.5rem;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(229, 231, 235, 0.6);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
 }
 
 .section-text {
@@ -84,8 +95,16 @@
   margin: 0 -1.5rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid rgba(229, 231, 235, 0.5);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  position: relative;
+}
+
+.board-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(5, 68, 121, 0.02) 0%, transparent 70%);
 }
 
 .advisors-section {
@@ -101,6 +120,7 @@
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 
 .advisors-section .members-grid {
@@ -117,13 +137,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 16px;
   background: white;
-  border: 1px solid rgba(229, 231, 235, 0.6);
+  border: 1px solid rgba(229, 231, 235, 0.5);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .member-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(5, 68, 121, 0.1);
+  box-shadow: 0 16px 40px rgba(5, 68, 121, 0.1);
 }
 
 /* Avatars */
@@ -140,18 +160,27 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   font-family: var(--font-heading);
-  box-shadow: 0 4px 15px rgba(5, 68, 121, 0.2);
+  box-shadow: 0 6px 20px rgba(5, 68, 121, 0.2);
   letter-spacing: 1px;
+  position: relative;
+}
+
+.member-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(246, 200, 76, 0.3);
 }
 
 .advisor-avatar {
   background: linear-gradient(135deg, #0a5a9e, #4b8df2);
-  box-shadow: 0 4px 15px rgba(75, 141, 242, 0.2);
+  box-shadow: 0 6px 20px rgba(75, 141, 242, 0.2);
 }
 
 /* Names & Roles */
 .member-name {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--primary-color);
   margin-bottom: 0.5rem;
   text-align: center;
@@ -159,11 +188,12 @@
 }
 
 .member-role {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--accent-hover);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   font-weight: 600;
+  font-family: var(--font-body);
 }
 
 /* Responsive */
@@ -181,7 +211,7 @@
   }
   
   .mission-card {
-    padding: 2rem;
+    padding: 2rem 1.5rem;
   }
   
   .members-grid,

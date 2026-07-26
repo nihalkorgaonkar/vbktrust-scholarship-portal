@@ -1,33 +1,33 @@
 .footer-mega {
-  background-color: var(--primary-color);
+  background: linear-gradient(180deg, #054479 0%, #032b4d 100%);
   color: white;
-  padding-top: 4rem;
+  padding-top: 5rem;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1.2fr;
   gap: 4rem;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 .brand-col .footer-logo {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .footer-description {
-  color: #e2e8f0;
-  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.8);
+  line-height: 1.7;
   font-size: 0.95rem;
-  max-width: 400px;
+  max-width: 380px;
 }
 
 .footer-col h3 {
   color: white;
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.15rem;
+  margin-bottom: 1.75rem;
   position: relative;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .footer-col h3::after {
@@ -35,9 +35,10 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 50px;
+  width: 40px;
   height: 2px;
-  background-color: var(--accent-color);
+  background: linear-gradient(90deg, var(--accent-color), transparent);
+  border-radius: 2px;
 }
 
 .links-col ul {
@@ -47,17 +48,19 @@
 }
 
 .links-col li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .links-col a {
-  color: #cbd5e1;
+  color: rgba(203, 213, 225, 0.85);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s, padding-left 0.3s;
+  font-size: 0.95rem;
 }
 
 .links-col a:hover {
   color: var(--accent-color);
+  padding-left: 4px;
 }
 
 .contact-info {
@@ -69,31 +72,36 @@
 .contact-info li {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  color: #cbd5e1;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  color: rgba(203, 213, 225, 0.85);
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .contact-info a {
-  color: #cbd5e1;
+  color: rgba(203, 213, 225, 0.85);
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 .contact-info a:hover {
-  text-decoration: underline;
+  color: var(--accent-color);
+}
+
+.address-item {
+  line-height: 1.7;
 }
 
 .footer-bottom {
-  background-color: #032b4d;
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 1.5rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .bottom-flex {
   font-size: 0.85rem;
-  color: #94a3b8;
+  color: rgba(148, 163, 184, 0.8);
 }
 
 .footer-legal span {
@@ -102,11 +110,13 @@
 }
 
 @media (max-width: 768px) {
+  .footer-mega {
+    padding-top: 3.5rem;
+  }
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
-  
   .bottom-flex {
     flex-direction: column;
     text-align: center;
