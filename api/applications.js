@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { createClient } from '@supabase/supabase-js';
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   const token = req.headers.authorization?.split(' ')[1];
@@ -36,6 +37,43 @@ export default async function handler(req, res) {
       .eq('id', id);
       
     if (error) return res.status(500).json({ error: error.message });
+
+    // Fetch user details to send email
+    const { data: appData, error: fetchError } = await supabase
+      .from('applications')
+      .select('users(email, full_name)')
+      .eq('id', id)
+      .single();
+
+    if (!fetchError && appData && appData.users) {
+      try {
+        let transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER || 'admin@vbktrust.org',
+            pass: process.env.EMAIL_PASS
+          }
+        });
+
+        const subject = status === 'Approved' 
+          ? "Scholarship Application Approved!" 
+          : "Update on your Scholarship Application";
+
+        const text = status === 'Approved'
+          ? `Dear ${appData.users.full_name},\n\nCongratulations! Your application for the Vasudeo Korgaonkar Trust MBBS Scholarship has been Approved.\n\nOur team will contact you shortly regarding the next steps for the scholarship disbursement.\n\nRegards,\nVasudeo Korgaonkar Trust`
+          : `Dear ${appData.users.full_name},\n\nThank you for applying for the Vasudeo Korgaonkar Trust MBBS Scholarship. After careful review, we regret to inform you that your application was not selected for this cycle.\n\nWe wish you the best in your medical studies and future endeavors.\n\nRegards,\nVasudeo Korgaonkar Trust`;
+
+        await transporter.sendMail({
+          from: '"Vasudeo Korgaonkar Trust" <admin@vbktrust.org>',
+          to: appData.users.email,
+          subject: subject,
+          text: text
+        });
+      } catch (emailError) {
+        console.error('Failed to send status email:', emailError);
+      }
+    }
+
     return res.status(200).json({ success: true });
   }
 
