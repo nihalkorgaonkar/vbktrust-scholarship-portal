@@ -3,10 +3,10 @@ import './AboutPage.css';
 
 const AboutPage = () => {
   const trustees = [
-    { name: 'Mr. Sharad Vasudeo Korgaonkar', role: 'Trustee' },
-    { name: 'Mrs. Archana Sachin Patne', role: 'Trustee' },
-    { name: 'Mrs. Ashwini Amol Harmalkar', role: 'Trustee' },
-    { name: 'Mr. Bhagyesh Shripad Mane', role: 'Trustee' }
+    { name: 'Mr. Sharad Vasudeo Korgaonkar', role: 'Chairman' },
+    { name: 'Mrs. Archana Sachin Patne', role: 'Secretary' },
+    { name: 'Mrs. Ashwini Amol Harmalkar', role: 'Treasurer' },
+    { name: 'Mr. Bagesh Shripad Mane', role: 'Trustee' }
   ];
 
   const advisors = [
@@ -34,6 +34,17 @@ const AboutPage = () => {
               financial constraints. By providing fully-funded MBBS scholarships, we aim to nurture 
               exceptional individuals who demonstrate academic brilliance, leadership, and a 
               deep-rooted commitment to public health.
+            </p>
+          </div>
+          
+          <h2 className="section-title" style={{marginTop: '4rem'}}>Our Impact & History</h2>
+          <div className="mission-card">
+            <p className="section-text">
+              Since our inception, we have been deeply committed to educational and social upliftment. 
+              <strong> We have successfully supported 10 medical students to date</strong>, helping them achieve 
+              their dreams of becoming doctors. Additionally, our trust actively works to <strong>support 
+              visually impaired students</strong> with educational resources, and we frequently organize 
+              <strong> tree plantation and conservation drives</strong> to promote environmental sustainability.
             </p>
           </div>
         </section>

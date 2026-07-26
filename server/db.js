@@ -16,6 +16,7 @@ async function initDB() {
       full_name TEXT,
       phone_number TEXT,
       mother_tongue TEXT,
+      family_occupation TEXT,
       neet_roll_number TEXT,
       role TEXT DEFAULT 'student'
     );
@@ -42,6 +43,12 @@ async function initDB() {
 
   try {
     await db.exec('ALTER TABLE users ADD COLUMN mother_tongue TEXT');
+  } catch (err) {
+    // Column might already exist, safe to ignore
+  }
+
+  try {
+    await db.exec('ALTER TABLE users ADD COLUMN family_occupation TEXT');
   } catch (err) {
     // Column might already exist, safe to ignore
   }

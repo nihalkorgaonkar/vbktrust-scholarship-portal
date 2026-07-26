@@ -59,7 +59,7 @@ const AdminDashboard = () => {
   };
 
   const handleExportCSV = () => {
-    const headers = ['Applicant Name', 'Email', 'Phone Number', 'Mother Tongue', 'NEET Roll Number', 'NEET Score File', 'Medical College', 'Status'];
+    const headers = ['Applicant Name', 'Email', 'Phone Number', 'Mother Tongue', 'Family Occupation', 'NEET Roll Number', 'NEET Score File', 'Medical College', 'Status'];
     
     const csvRows = [];
     csvRows.push(headers.join(','));
@@ -70,6 +70,7 @@ const AdminDashboard = () => {
         `"${app.email}"`,
         `"${app.phone_number || ''}"`,
         `"${app.mother_tongue || ''}"`,
+        `"${app.family_occupation || ''}"`,
         `"${app.neet_roll_number || ''}"`,
         `"${app.neet_score_path || ''}"`,
         `"${app.college_name || ''}"`,
@@ -165,6 +166,7 @@ const AdminDashboard = () => {
                     <td>
                       <div className="font-medium">{app.full_name}</div>
                       {app.mother_tongue && <div className="text-sm text-secondary">Lang: {app.mother_tongue}</div>}
+                      {app.family_occupation && <div className="text-sm text-secondary">Occ: {app.family_occupation}</div>}
                     </td>
                     <td>
                       <div className="text-sm">{app.email}</div>

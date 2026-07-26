@@ -10,6 +10,7 @@ const RegistrationPage = () => {
     fullName: '',
     phoneNumber: '',
     motherTongue: '',
+    familyOccupation: '',
     neetRollNumber: '',
     collegeName: ''
   });
@@ -33,7 +34,7 @@ const RegistrationPage = () => {
   };
 
   const isStep1Valid = formData.email && formData.phoneNumber;
-  const isStep2Valid = formData.fullName && formData.motherTongue && formData.neetRollNumber && formData.collegeName;
+  const isStep2Valid = formData.fullName && formData.motherTongue && formData.familyOccupation && formData.neetRollNumber && formData.collegeName;
   const isStep3Valid = documents.admissionLetter && documents.incomeCertificate && documents.twelfthMarksheet && documents.neetScore;
 
   const nextStep = (e) => {
@@ -72,6 +73,7 @@ const RegistrationPage = () => {
     submitData.append('fullName', formData.fullName);
     submitData.append('phoneNumber', formData.phoneNumber);
     submitData.append('motherTongue', formData.motherTongue);
+    submitData.append('familyOccupation', formData.familyOccupation);
     submitData.append('neetRollNumber', formData.neetRollNumber);
     submitData.append('collegeName', formData.collegeName);
     submitData.append('admissionLetter', documents.admissionLetter);
@@ -151,6 +153,10 @@ const RegistrationPage = () => {
                   <option value="English">English</option>
                   <option value="Other">Other</option>
                 </select>
+              </div>
+              <div className="form-group">
+                <label className="form-label">Family Occupation</label>
+                <input type="text" name="familyOccupation" className="form-input" value={formData.familyOccupation} onChange={handleInputChange} required />
               </div>
               <div className="form-group">
                 <label className="form-label">NEET Roll Number</label>

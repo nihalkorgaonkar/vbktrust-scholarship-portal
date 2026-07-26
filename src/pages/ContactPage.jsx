@@ -52,7 +52,7 @@ const ContactPage = () => {
               </div>
               <div className="info-content">
                 <h3>Email Address</h3>
-                <p><a href="mailto:vbktrust@gmail.com">vbktrust@gmail.com</a></p>
+                <p><a href="mailto:admin@vbktrust.org">admin@vbktrust.org</a></p>
               </div>
             </div>
 

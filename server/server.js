@@ -66,7 +66,7 @@ app.post('/api/auth/apply', upload.fields([
   { name: 'neetScore', maxCount: 1 }
 ]), async (req, res) => {
   try {
-    const { email, fullName, phoneNumber, motherTongue, neetRollNumber, collegeName } = req.body;
+    const { email, fullName, phoneNumber, motherTongue, familyOccupation, neetRollNumber, collegeName } = req.body;
     
     // Check if user exists
     const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
@@ -76,8 +76,8 @@ app.post('/api/auth/apply', upload.fields([
 
     // Insert Applicant (no password needed anymore)
     const userResult = await db.run(
-      'INSERT INTO users (email, password_hash, full_name, phone_number, mother_tongue, neet_roll_number, role) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [email, '', fullName, phoneNumber, motherTongue, neetRollNumber, 'applicant']
+      'INSERT INTO users (email, password_hash, full_name, phone_number, mother_tongue, family_occupation, neet_roll_number, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [email, '', fullName, phoneNumber, motherTongue, familyOccupation, neetRollNumber, 'applicant']
     );
 
     const studentId = userResult.lastID;
@@ -100,13 +100,13 @@ app.post('/api/auth/apply', upload.fields([
       let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: process.env.EMAIL_USER || 'vbktrust@gmail.com',
+          user: process.env.EMAIL_USER || 'admin@vbktrust.org',
           pass: process.env.EMAIL_PASS || 'app_password_here'
         }
       });
       
       await transporter.sendMail({
-        from: '"Vasudeo Korgaonkar Trust" <vbktrust@gmail.com>',
+        from: '"Vasudeo Korgaonkar Trust" <admin@vbktrust.org>',
         to: email,
         subject: "Scholarship Application Received",
         text: `Dear ${fullName},\n\nYour application for the Vasudeo Korgaonkar Trust Scholarship has been received successfully.\n\nCollege: ${collegeName}\n\nWe will review your documents and contact you regarding the next steps.\n\nRegards,\nVasudeo Korgaonkar Trust`
@@ -156,7 +156,7 @@ app.get('/api/admin/applications', authenticateToken, async (req, res) => {
   try {
     const applications = await db.all(`
       SELECT a.id, a.status, a.college_name, a.application_year, a.admission_letter_path, a.income_certificate_path, a.twelfth_marksheet_path, a.neet_score_path,
-             u.full_name, u.email, u.phone_number, u.mother_tongue, u.neet_roll_number 
+             u.full_name, u.email, u.phone_number, u.mother_tongue, u.family_occupation, u.neet_roll_number 
       FROM applications a
       JOIN users u ON a.student_id = u.id
     `);
