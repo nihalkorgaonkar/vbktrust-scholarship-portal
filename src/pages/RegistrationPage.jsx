@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UploadCloud, CheckCircle, FileText, IndianRupee } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
@@ -68,34 +69,70 @@ const RegistrationPage = () => {
     setLoading(true);
     setError('');
 
-    const submitData = new FormData();
-    submitData.append('email', formData.email);
-    submitData.append('fullName', formData.fullName);
-    submitData.append('phoneNumber', formData.phoneNumber);
-    submitData.append('motherTongue', formData.motherTongue);
-    submitData.append('familyOccupation', formData.familyOccupation);
-    submitData.append('neetRollNumber', formData.neetRollNumber);
-    submitData.append('collegeName', formData.collegeName);
-    submitData.append('admissionLetter', documents.admissionLetter);
-    submitData.append('incomeCertificate', documents.incomeCertificate);
-    submitData.append('twelfthMarksheet', documents.twelfthMarksheet);
-    submitData.append('neetScore', documents.neetScore);
-
     try {
-      const response = await fetch('/api/auth/apply', {
-        method: 'POST',
-        body: submitData
-      });
-      const data = await response.json();
-      
-      if (response.ok) {
-        setSuccessMessage('Application submitted successfully! Please check your email for confirmation.');
-        setStep(4);
-      } else {
-        setError(data.error || 'Application failed');
+      // 1. Upload files to Supabase Storage
+      const uploadFile = async (file) => {
+        if (!file) return null;
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+        const { data, error } = await supabase.storage.from('uploads').upload(fileName, file);
+        if (error) throw error;
+        return data.path;
+      };
+
+      const admissionLetterPath = await uploadFile(documents.admissionLetter);
+      const incomeCertificatePath = await uploadFile(documents.incomeCertificate);
+      const twelfthMarksheetPath = await uploadFile(documents.twelfthMarksheet);
+      const neetScorePath = await uploadFile(documents.neetScore);
+
+      // 2. Insert User Record
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .insert([{
+          full_name: formData.fullName,
+          email: formData.email,
+          phone_number: formData.phoneNumber,
+          mother_tongue: formData.motherTongue,
+          family_occupation: formData.familyOccupation,
+          neet_roll_number: formData.neetRollNumber
+        }])
+        .select();
+
+      if (userError) {
+        if (userError.code === '23505') throw new Error('Email already registered');
+        throw userError;
       }
+
+      const studentId = userData[0].id;
+
+      // 3. Insert Application Record
+      const { error: appError } = await supabase
+        .from('applications')
+        .insert([{
+          student_id: studentId,
+          college_name: formData.collegeName,
+          application_year: new Date().getFullYear().toString(),
+          admission_letter_path: admissionLetterPath,
+          income_certificate_path: incomeCertificatePath,
+          twelfth_marksheet_path: twelfthMarksheetPath,
+          neet_score_path: neetScorePath,
+          status: 'Pending'
+        }]);
+
+      if (appError) throw appError;
+
+      // 4. Trigger Email Confirmation via Vercel Function
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, fullName: formData.fullName, collegeName: formData.collegeName })
+      }).catch(err => console.error("Email API failed:", err));
+
+      setSuccessMessage('Application submitted successfully! Please check your email for confirmation.');
+      setStep(4);
     } catch (err) {
-      setError('Network error. Please try again.');
+      console.error(err);
+      setError(err.message || 'Application failed. Please check your internet connection.');
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FileText, CheckCircle, XCircle, Clock, Search, Download } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -22,17 +23,33 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch('/api/admin/applications', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setApplications(data);
-      } else {
-        navigate('/admin');
-      }
+      const { data, error } = await supabase
+        .from('applications')
+        .select(`
+          id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path,
+          users ( full_name, email, phone_number, mother_tongue, family_occupation, neet_roll_number )
+        `);
+      
+      if (error) throw error;
+      
+      // Flatten the joined data to match the old structure
+      const formattedData = data.map(app => ({
+        ...app,
+        full_name: app.users?.full_name,
+        email: app.users?.email,
+        phone_number: app.users?.phone_number,
+        mother_tongue: app.users?.mother_tongue,
+        family_occupation: app.users?.family_occupation,
+        neet_roll_number: app.users?.neet_roll_number
+      }));
+
+      setApplications(formattedData);
     } catch (err) {
       console.error('Failed to fetch applications', err);
+      // If unauthorized or error, maybe log them out
+      if (err.code === 'PGRST301' || err.message?.includes('JWT')) {
+        navigate('/admin');
+      }
     } finally {
       setLoading(false);
     }
@@ -40,26 +57,26 @@ const AdminDashboard = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const token = localStorage.getItem('adminToken');
-      const response = await fetch(`/api/admin/applications/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ status: newStatus })
-      });
+      const { error } = await supabase
+        .from('applications')
+        .update({ status: newStatus })
+        .eq('id', id);
 
-      if (response.ok) {
-        fetchApplications();
-      }
+      if (error) throw error;
+      fetchApplications();
     } catch (err) {
       console.error('Failed to update status', err);
     }
   };
 
+  const getFileUrl = (path) => {
+    if (!path) return '#';
+    const { data } = supabase.storage.from('uploads').getPublicUrl(path);
+    return data.publicUrl;
+  };
+
   const handleExportCSV = () => {
-    const headers = ['Applicant Name', 'Email', 'Phone Number', 'Mother Tongue', 'Family Occupation', 'NEET Roll Number', 'NEET Score File', 'Medical College', 'Status'];
+    const headers = ['Applicant Name', 'Email', 'Phone Number', 'Mother Tongue', 'Family Occupation', 'NEET Roll Number', 'Medical College', 'Status'];
     
     const csvRows = [];
     csvRows.push(headers.join(','));
@@ -72,7 +89,6 @@ const AdminDashboard = () => {
         `"${app.mother_tongue || ''}"`,
         `"${app.family_occupation || ''}"`,
         `"${app.neet_roll_number || ''}"`,
-        `"${app.neet_score_path || ''}"`,
         `"${app.college_name || ''}"`,
         `"${app.status}"`
       ];
@@ -92,8 +108,10 @@ const AdminDashboard = () => {
   if (loading) return <div className="admin-dashboard container"><p>Loading dashboard...</p></div>;
 
   const filteredApplications = applications.filter(app => {
-    const matchesSearch = app.full_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          app.neet_roll_number.toLowerCase().includes(searchTerm.toLowerCase());
+    const nameStr = app.full_name || '';
+    const rollStr = app.neet_roll_number || '';
+    const matchesSearch = nameStr.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          rollStr.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterStatus === 'All' || app.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
@@ -176,19 +194,19 @@ const AdminDashboard = () => {
                     <td>{app.college_name}</td>
                     <td>
                       <div className="flex gap-2">
-                        <a href={`http://localhost:3001/${app.admission_letter_path}`} target="_blank" rel="noreferrer" className="btn-icon" title="View Admission Letter">
+                        <a href={getFileUrl(app.admission_letter_path)} target="_blank" rel="noreferrer" className="btn-icon" title="View Admission Letter">
                           <FileText size={18} />
                         </a>
-                        <a href={`http://localhost:3001/${app.income_certificate_path}`} target="_blank" rel="noreferrer" className="btn-icon" title="View Income Certificate">
+                        <a href={getFileUrl(app.income_certificate_path)} target="_blank" rel="noreferrer" className="btn-icon" title="View Income Certificate">
                           <FileText size={18} />
                         </a>
                         {app.twelfth_marksheet_path && (
-                          <a href={`http://localhost:3001/${app.twelfth_marksheet_path}`} target="_blank" rel="noreferrer" className="btn-icon" title="View 12th Marksheet">
+                          <a href={getFileUrl(app.twelfth_marksheet_path)} target="_blank" rel="noreferrer" className="btn-icon" title="View 12th Marksheet">
                             <FileText size={18} />
                           </a>
                         )}
                         {app.neet_score_path && (
-                          <a href={`http://localhost:3001/${app.neet_score_path}`} target="_blank" rel="noreferrer" className="btn-icon" title="View NEET Scorecard">
+                          <a href={getFileUrl(app.neet_score_path)} target="_blank" rel="noreferrer" className="btn-icon" title="View NEET Scorecard">
                             <FileText size={18} />
                           </a>
                         )}
