@@ -183,6 +183,15 @@ app.patch('/api/admin/applications/:id', authenticateToken, async (req, res) => 
 
 
 
+// Serve static frontend files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../dist')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  });
+}
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
