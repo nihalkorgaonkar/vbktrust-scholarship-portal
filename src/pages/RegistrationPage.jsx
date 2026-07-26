@@ -85,25 +85,25 @@ const RegistrationPage = () => {
       const twelfthMarksheetPath = await uploadFile(documents.twelfthMarksheet);
       const neetScorePath = await uploadFile(documents.neetScore);
 
+      const studentId = crypto.randomUUID();
+
       // 2. Insert User Record
-      const { data: userData, error: userError } = await supabase
+      const { error: userError } = await supabase
         .from('users')
         .insert([{
+          id: studentId,
           full_name: formData.fullName,
           email: formData.email,
           phone_number: formData.phoneNumber,
           mother_tongue: formData.motherTongue,
           family_occupation: formData.familyOccupation,
           neet_roll_number: formData.neetRollNumber
-        }])
-        .select();
+        }]);
 
       if (userError) {
         if (userError.code === '23505') throw new Error('Email already registered');
         throw userError;
       }
-
-      const studentId = userData[0].id;
 
       // 3. Insert Application Record
       const { error: appError } = await supabase
