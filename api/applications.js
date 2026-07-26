@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       .from('applications')
       .select(`
         id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path,
-        users ( full_name, email, phone_number, mother_tongue, family_occupation, neet_roll_number )
+        users ( id, full_name, email, phone_number, mother_tongue, family_occupation, neet_roll_number )
       `);
       
     if (error) return res.status(500).json({ error: error.message });
@@ -72,6 +72,45 @@ export default async function handler(req, res) {
       } catch (emailError) {
         console.error('Failed to send status email:', emailError);
       }
+    }
+
+    return res.status(200).json({ success: true });
+  }
+
+  if (req.method === 'DELETE') {
+    const { id, userId } = req.body;
+    
+    // Fetch file paths to delete them from storage
+    const { data: appData } = await supabase
+      .from('applications')
+      .select('admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path')
+      .eq('id', id)
+      .single();
+      
+    if (appData) {
+      const filesToRemove = [
+        appData.admission_letter_path,
+        appData.income_certificate_path,
+        appData.twelfth_marksheet_path,
+        appData.neet_score_path
+      ].filter(Boolean); // Filter out nulls
+      
+      if (filesToRemove.length > 0) {
+        await supabase.storage.from('uploads').remove(filesToRemove);
+      }
+    }
+
+    // Delete application record
+    const { error: appDeleteError } = await supabase
+      .from('applications')
+      .delete()
+      .eq('id', id);
+      
+    if (appDeleteError) return res.status(500).json({ error: appDeleteError.message });
+
+    // Optionally delete the user record as well
+    if (userId) {
+      await supabase.from('users').delete().eq('id', userId);
     }
 
     return res.status(200).json({ success: true });

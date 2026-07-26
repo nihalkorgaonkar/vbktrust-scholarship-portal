@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FileText, CheckCircle, XCircle, Clock, Search, Download } from 'lucide-react';
+import { FileText, CheckCircle, XCircle, Clock, Search, Download, Trash2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import './AdminDashboard.css';
 
@@ -39,6 +39,7 @@ const AdminDashboard = () => {
       // Flatten the joined data to match the structure
       const formattedData = data.map(app => ({
         ...app,
+        user_id: app.users?.id,
         full_name: app.users?.full_name,
         email: app.users?.email,
         phone_number: app.users?.phone_number,
@@ -52,6 +53,28 @@ const AdminDashboard = () => {
       console.error('Failed to fetch applications', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id, userId) => {
+    if (!window.confirm('Are you sure you want to completely delete this application and its files? This action cannot be undone.')) return;
+    
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await fetch('/api/applications', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id, userId })
+      });
+
+      if (!response.ok) throw new Error('Failed to delete');
+      fetchApplications();
+    } catch (err) {
+      console.error('Failed to delete application', err);
+      alert('Failed to delete application. Please try again.');
     }
   };
 
@@ -240,6 +263,14 @@ const AdminDashboard = () => {
                           disabled={app.status === 'Rejected'}
                         >
                           Reject
+                        </button>
+                        <button
+                          className="btn-icon"
+                          style={{ color: '#ef4444', marginLeft: 'auto' }}
+                          onClick={() => handleDelete(app.id, app.user_id)}
+                          title="Delete Application"
+                        >
+                          <Trash2 size={18} />
                         </button>
                       </div>
                     </td>
