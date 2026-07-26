@@ -49,8 +49,8 @@ export default async function handler(req, res) {
       try {
         let transporter = nodemailer.createTransport({
           host: 'smtp.titan.email',
-          port: 465,
-          secure: true,
+          port: 587,
+          secure: false, // TLS requires secure: false on port 587
           auth: {
             user: process.env.EMAIL_USER || 'admin@vbktrust.org',
             pass: process.env.EMAIL_PASS
