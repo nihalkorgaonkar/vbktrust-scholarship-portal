@@ -12,7 +12,7 @@ const AboutPage = () => {
   const advisors = [
     { name: 'Dr. Dhangauri Shenvi', role: 'Advisor' },
     { name: 'Mr. Avinash Ravindra Korgaonkar', role: 'Advisor' },
-    { name: 'Mr. Mohan Subhash Korgaonkar', role: 'Advisor' }
+    { name: 'Mr. Mohan Russell Korgaonkar', role: 'Advisor' }
   ];
 
   return (
