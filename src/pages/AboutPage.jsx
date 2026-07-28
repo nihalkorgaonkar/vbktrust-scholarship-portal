@@ -43,8 +43,8 @@ const AboutPage = () => {
               Since our inception, we have been deeply committed to educational and social upliftment. 
               <strong> We have successfully supported 10 medical students to date</strong>, helping them achieve 
               their dreams of becoming doctors. Additionally, our trust actively works to <strong>support 
-              visually impaired students</strong> with educational resources, and we frequently organize 
-              <strong> tree plantation and conservation drives</strong> to promote environmental sustainability.
+              visually impaired students</strong> with educational resources, and we are committed to 
+              <strong> organizing tree plantation drives</strong> to promote environmental sustainability.
             </p>
           </div>
         </section>
