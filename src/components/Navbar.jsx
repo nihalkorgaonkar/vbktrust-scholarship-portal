@@ -15,14 +15,11 @@ const Navbar = () => {
         
         {/* Logo */}
         <Link to="/" className="navbar-logo flex items-center gap-4">
-          <div className="logo-mark">
-            <div className="logo-shield">
-              <span className="logo-monogram">VBK</span>
-            </div>
-            <div className="logo-text-group">
-              <span className="logo-title">Vasudeo Korgaonkar</span>
-              <span className="logo-subtitle">TRUST</span>
-            </div>
+          <div className="logo-placeholder">
+            {/* The user mentioned referencing the file for branding, 
+                so we use the text with the specific colors */}
+            <span className="logo-vk">VBK</span>
+            <span className="logo-trust">TRUST</span>
           </div>
         </Link>
 
