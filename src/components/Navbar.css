@@ -17,28 +17,66 @@
   text-decoration: none;
 }
 
-.logo-placeholder {
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.logo-shield {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(145deg, #054479, #1a6fc4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(5, 68, 121, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-shield::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 10px 10px 0 0;
+}
+
+.logo-monogram {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-text-group {
   display: flex;
   flex-direction: column;
-  line-height: 1;
+  line-height: 1.15;
 }
 
-.logo-vk {
+.logo-title {
   font-family: var(--font-heading);
-  font-size: 28px;
+  font-size: 15px;
   font-weight: 700;
-  background: linear-gradient(135deg, #054479, #4b8df2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -1px;
+  color: var(--primary-color);
+  letter-spacing: -0.3px;
 }
 
-.logo-trust {
+.logo-subtitle {
   font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--secondary-color);
-  letter-spacing: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-color);
+  letter-spacing: 3.5px;
   text-transform: uppercase;
 }
 

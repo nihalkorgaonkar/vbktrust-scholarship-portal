@@ -9,8 +9,15 @@ const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-col brand-col">
           <div className="footer-logo">
-            <span className="logo-vk" style={{color: 'white', fontWeight: 800, fontSize: '1.5rem'}}>VBK</span>
-            <span className="logo-trust" style={{color: 'var(--accent-color)', fontWeight: 800, fontSize: '1.5rem', marginLeft: '0.2rem'}}>TRUST</span>
+            <div className="logo-mark">
+              <div className="logo-shield" style={{background: 'linear-gradient(145deg, #2a7de1, #4b9af5)', boxShadow: '0 2px 8px rgba(42, 125, 225, 0.3)'}}>
+                <span className="logo-monogram">VBK</span>
+              </div>
+              <div className="logo-text-group">
+                <span className="logo-title" style={{color: '#ffffff'}}>Vasudeo Korgaonkar</span>
+                <span className="logo-subtitle">TRUST</span>
+              </div>
+            </div>
           </div>
           <p className="footer-description">
             Empowering the brightest medical minds in India through fully-funded MBBS scholarships. Established to support those who demonstrate academic brilliance and a commitment to public health.
