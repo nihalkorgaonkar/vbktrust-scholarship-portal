@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container footer-grid">
         <div className="footer-col brand-col">
           <div className="footer-logo">
-            <span className="logo-vk" style={{color: 'white', fontWeight: 800, fontSize: '1.5rem'}}>VK</span>
+            <span className="logo-vk" style={{color: 'white', fontWeight: 800, fontSize: '1.5rem'}}>VBK</span>
             <span className="logo-trust" style={{color: 'var(--accent-color)', fontWeight: 800, fontSize: '1.5rem', marginLeft: '0.2rem'}}>TRUST</span>
           </div>
           <p className="footer-description">

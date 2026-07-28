@@ -18,7 +18,7 @@ const Navbar = () => {
           <div className="logo-placeholder">
             {/* The user mentioned referencing the file for branding, 
                 so we use the text with the specific colors */}
-            <span className="logo-vk">VK</span>
+            <span className="logo-vk">VBK</span>
             <span className="logo-trust">TRUST</span>
           </div>
         </Link>
