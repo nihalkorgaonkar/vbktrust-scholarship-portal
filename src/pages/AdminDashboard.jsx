@@ -244,6 +244,16 @@ const AdminDashboard = () => {
                             <FileText size={18} />
                           </a>
                         )}
+                        {app.writeup_document_path && (
+                          <a href={getFileUrl(app.writeup_document_path)} target="_blank" rel="noreferrer" className="btn-icon" title="View Statement of Purpose">
+                            <FileText size={18} />
+                          </a>
+                        )}
+                        {app.academic_achievements_path && (
+                          <a href={getFileUrl(app.academic_achievements_path)} target="_blank" rel="noreferrer" className="btn-icon" title="View Academic Achievements">
+                            <FileText size={18} />
+                          </a>
+                        )}
                       </div>
                     </td>
                     <td>

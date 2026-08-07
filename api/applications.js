@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('applications')
       .select(`
-        id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path,
+        id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path,
         users ( id, full_name, email, phone_number, mother_tongue, family_occupation, neet_roll_number )
       `);
       
