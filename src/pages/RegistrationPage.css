@@ -252,3 +252,37 @@
     width: 100%;
   }
 }
+
+/* Eligibility Notice */
+.eligibility-notice {
+  background: linear-gradient(135deg, rgba(5, 68, 121, 0.04), rgba(75, 141, 242, 0.06));
+  border: 1px solid rgba(5, 68, 121, 0.12);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.eligibility-notice h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
+
+.eligibility-notice ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.eligibility-notice li {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--secondary-text);
+  margin-bottom: 0.35rem;
+}
+
+.eligibility-notice strong {
+  color: var(--primary-color);
+}

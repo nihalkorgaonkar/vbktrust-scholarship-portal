@@ -63,6 +63,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             from: 'Vasudeo Korgaonkar Trust <admin@vbktrust.org>',
+            reply_to: 'vbktrustorg@gmail.com',
             to: [appData.users.email],
             subject: subject,
             text: text
@@ -88,19 +89,21 @@ export default async function handler(req, res) {
     const { id, userId } = req.body;
     
     // Fetch file paths to delete them from storage
-    const { data: appData } = await supabase
-      .from('applications')
-      .select('admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path')
-      .eq('id', id)
-      .single();
-      
-    if (appData) {
-      const filesToRemove = [
-        appData.admission_letter_path,
-        appData.income_certificate_path,
-        appData.twelfth_marksheet_path,
-        appData.neet_score_path
-      ].filter(Boolean); // Filter out nulls
+      const { data: appData } = await supabase
+        .from('applications')
+        .select('admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path')
+        .eq('id', id)
+        .single();
+        
+      if (appData) {
+        const filesToRemove = [
+          appData.admission_letter_path,
+          appData.income_certificate_path,
+          appData.twelfth_marksheet_path,
+          appData.neet_score_path,
+          appData.writeup_document_path,
+          appData.academic_achievements_path
+        ].filter(Boolean); // Filter out nulls
       
       if (filesToRemove.length > 0) {
         await supabase.storage.from('uploads').remove(filesToRemove);

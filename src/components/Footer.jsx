@@ -32,7 +32,7 @@ const Footer = () => {
           <ul className="contact-info">
             <li>
               <Mail size={18} />
-              <a href="mailto:admin@vbktrust.org">admin@vbktrust.org</a>
+              <a href="mailto:vbktrustorg@gmail.com">vbktrustorg@gmail.com</a>
             </li>
             <li>
               <ExternalLink size={18} />

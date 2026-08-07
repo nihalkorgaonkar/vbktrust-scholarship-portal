@@ -7,7 +7,7 @@ export default function handler(req, res) {
 
   const { email, password } = req.body;
   
-  if (email === 'admin@vbktrust.org' && password === process.env.VITE_ADMIN_PASSWORD) {
+  if (email === 'vbktrustorg@gmail.com' && password === process.env.VITE_ADMIN_PASSWORD) {
     const token = jwt.sign({ role: 'admin' }, process.env.VITE_SUPABASE_ANON_KEY || 'secret', { expiresIn: '8h' });
     return res.status(200).json({ token });
   }

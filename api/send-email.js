@@ -20,6 +20,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'Vasudeo Korgaonkar Trust <admin@vbktrust.org>',
+        reply_to: 'vbktrustorg@gmail.com',
         to: [email],
         subject: "Scholarship Application Received",
         text: `Dear ${fullName},\n\nYour application for the Vasudeo Korgaonkar Trust Scholarship has been received successfully.\n\nCollege: ${collegeName}\n\nWe will review your documents and contact you regarding the next steps.\n\nRegards,\nVasudeo Korgaonkar Trust`

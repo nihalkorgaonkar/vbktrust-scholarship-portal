@@ -26,26 +26,40 @@ const AboutPage = () => {
 
       <div className="container">
         <section className="mission-section">
-          <h2 className="section-title">Our Mission</h2>
-          <div className="mission-card">
-            <p className="section-text">
-              The Vasudeo Korgaonkar Trust was established with a singular vision: to ensure that 
-              talented and driven students are not held back from their medical dreams due to 
-              financial constraints. By providing fully-funded MBBS scholarships, we aim to nurture 
-              exceptional individuals who demonstrate academic brilliance, leadership, and a 
-              deep-rooted commitment to public health.
-            </p>
+          <div className="about-content-wrapper">
+            <div className="about-text-content">
+              <h2 className="section-title" style={{textAlign: 'left'}}>Our History</h2>
+              <div className="mission-card">
+                <p className="section-text">
+                  This Trust was set up in January of 2025. Before this, since 2016, the promotor of this trust was doing the charitable activities of the Trust as a private individual in memory of his late brother, Dr. Subhash Korgaonkar, alumni of the G.S. Medical college, Mumbai. The name of the Trust is in the memory of promotor's late father, a social activist and a freedom fighter.
+                </p>
+                <p className="section-text" style={{marginTop: '1rem'}}>
+                  We dedicate our work to all those freedom fighters, countless in numbers, who selflessly fought for India's Independence from British colonial rule. The name of the Trust is only symbolic - a label for the sacrifice of those wonderful people.
+                </p>
+              </div>
+            </div>
+            <div className="about-image-content">
+              <img src="/images/image2.jpg" alt="Doctors treating patients" className="about-image" />
+            </div>
           </div>
           
-          <h2 className="section-title" style={{marginTop: '4rem'}}>Our Impact & History</h2>
-          <div className="mission-card">
-            <p className="section-text">
-              Since our inception, we have been deeply committed to educational and social upliftment. 
-              <strong> We have successfully supported 10 medical students to date</strong>, helping them achieve 
-              their dreams of becoming doctors. Additionally, our trust actively works to <strong>support 
-              visually impaired students</strong> with educational resources, and we are committed to 
-              <strong> organizing tree plantation drives</strong> to promote environmental sustainability.
-            </p>
+          <div className="about-content-wrapper reverse" style={{marginTop: '4rem'}}>
+            <div className="about-text-content">
+              <h2 className="section-title" style={{textAlign: 'left'}}>Our Activities</h2>
+              <div className="mission-card">
+                <ul className="activities-list">
+                  <li><strong>Medical Sponsorship:</strong> To sponsor open category medical students from financially poor families based on merit alone, in memory of Dr Subhash Korgaonkar.</li>
+                  <li><strong>Environmental & Cultural:</strong> To promote Marathi Language and plant trees in memory of Shri Ravindra Korgaonkar, brother of the promoter. The planting of the trees will also be in loving memory of Shri Vasudeo Balkrishna Korgaonkar, his late brothers and their wives.</li>
+                  <li><strong>Disability Support:</strong> To Support the activities related to blind and other disabled persons in the fond memory of late Nalini Vasudeo Korgaonkar, promoter's blind sister.</li>
+                </ul>
+                <p className="section-text" style={{marginTop: '1rem', fontStyle: 'italic', fontSize: '0.9rem', color: 'var(--secondary-text)'}}>
+                  Above is a broad outline and not the exhaustive list of the Trust activities.
+                </p>
+              </div>
+            </div>
+            <div className="about-image-content">
+              <img src="/images/image1.jpg" alt="Tree plantation" className="about-image" />
+            </div>
           </div>
         </section>
       </div>
