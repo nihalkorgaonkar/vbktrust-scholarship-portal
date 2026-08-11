@@ -95,7 +95,7 @@ const LandingPage = () => {
           <h2 className="section-title text-center">Empowering the Next Generation</h2>
           
           <div className="empowering-content" style={{maxWidth: '700px', margin: '0 auto', textAlign: 'left'}}>
-            <p style={{fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--primary-color)', fontWeight: 'bold'}}>VBK TRUST should read as follows:</p>
+            <h3 style={{fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--primary-color)', fontWeight: 'bold'}}>VBK TRUST</h3>
             <ul className="activities-list" style={{marginBottom: '2rem'}}>
               <li>Empowering the brightest medical students in India</li>
               <li>Greening India</li>
@@ -103,8 +103,8 @@ const LandingPage = () => {
               <li>Helping physically handicapped</li>
             </ul>
             
-            <p className="note-text" style={{fontWeight: 'bold', color: '#d32f2f', marginBottom: '2rem', textAlign: 'center'}}>
-              Before applying Candidates are expected to understand the ethos of the Trust. So carefully study the information about the Trust.
+            <p className="note-text" style={{fontWeight: 'bold', color: 'var(--secondary-text)', marginBottom: '2rem', textAlign: 'center'}}>
+              Before applying, candidates are expected to understand the ethos of the Trust. So carefully study the information about the Trust.
             </p>
             
             <div className="text-center">

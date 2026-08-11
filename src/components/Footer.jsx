@@ -13,7 +13,7 @@ const Footer = () => {
             <span className="logo-trust" style={{color: 'var(--accent-color)', fontWeight: 800, fontSize: '1.5rem', marginLeft: '0.2rem'}}>TRUST</span>
           </div>
           <p className="footer-description">
-            Empowering the brightest medical minds in India through fully-funded MBBS scholarships. Established to support those who demonstrate academic brilliance and a commitment to public health.
+            Empowering the brightest medical students in India through fully-funded MBBS scholarships. Established to support those who demonstrate academic brilliance and a commitment to public health.
           </p>
         </div>
 
