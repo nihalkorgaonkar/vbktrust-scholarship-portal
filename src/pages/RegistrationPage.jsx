@@ -18,7 +18,8 @@ const RegistrationPage = () => {
     familyOccupation: '',
     neetRollNumber: '',
     collegeName: '',
-    otherCollegeName: ''
+    otherCollegeName: '',
+    reasonForScholarship: ''
   });
   const [documents, setDocuments] = useState({
     admissionLetter: null,
@@ -60,7 +61,7 @@ const RegistrationPage = () => {
 
   const isStep1Valid = formData.email && formData.phoneNumber;
   const isLanguageValid = formData.motherTongue !== 'Other' || (formData.motherTongue === 'Other' && formData.otherLanguage);
-  const isStep2Valid = formData.fullName && formData.motherTongue && isLanguageValid && formData.postalAddress && formData.permanentAddress && formData.familyOccupation && formData.neetRollNumber && formData.collegeName;
+  const isStep2Valid = formData.fullName && formData.motherTongue && isLanguageValid && formData.postalAddress && formData.permanentAddress && formData.familyOccupation && formData.neetRollNumber && formData.collegeName && formData.reasonForScholarship;
   const isStep3Valid = documents.admissionLetter && documents.incomeCertificate && documents.twelfthMarksheet && documents.neetScore && documents.writeupDocument && documents.academicAchievements;
 
   const nextStep = (e) => {
@@ -151,6 +152,7 @@ const RegistrationPage = () => {
           neet_score_path: neetScorePath,
           writeup_document_path: writeupDocumentPath,
           academic_achievements_path: academicAchievementsPath,
+          reason_for_scholarship: formData.reasonForScholarship,
           status: 'Pending'
         }]);
 
@@ -187,6 +189,7 @@ const RegistrationPage = () => {
               <li>The Trust would prefer students from <strong>Maharashtra</strong>; at least one should be of <strong>Marathi Mother Tongue</strong>.</li>
               <li>Students from <strong>G.S. Medical College, Grand Medical College, Sion Hospital Medical College, and Nayar Hospital College</strong> may apply.</li>
               <li>Selected candidates should commit to at least <strong>first 5 years of practicing medicine in India</strong>.</li>
+              <li>The candidates selected ...... After that if they wish to go abroad for employment, they are morally obliged to sponsor at least one student from poor homes in either medicine, pure sciences, or technology in consultation with the Trust.</li>
               <li>Candidates are expected to <strong>volunteer and participate</strong> in Trust activities such as medical camps in rural and tribal areas.</li>
             </ul>
           </div>
@@ -282,6 +285,11 @@ const RegistrationPage = () => {
                   <input type="text" name="otherCollegeName" className="form-input" placeholder="Enter your medical college name" value={formData.otherCollegeName} onChange={handleInputChange} required />
                 </div>
               )}
+              
+              <div className="form-group mt-4">
+                <label className="form-label">Why do you think the Trust should offer you this Scholarship?</label>
+                <textarea name="reasonForScholarship" className="form-input" rows="4" placeholder="Briefly explain your need for this scholarship and your future goals." value={formData.reasonForScholarship} onChange={handleInputChange} required></textarea>
+              </div>
             </div>
           )}
 

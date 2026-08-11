@@ -15,16 +15,6 @@ const LandingPage = () => {
           <h1 className="hero-title">Vasudeo Balkrishna Korgaonkar Trust</h1>
           <p className="hero-sanskrit">बहुजन हिताय बहुजन सुखाय</p>
           <p className="hero-subtitle">In the interest and wellbeing of all</p>
-          <div className="hero-actions">
-            <button className="btn btn-cta btn-lg" onClick={() => navigate('/register')}>
-              Apply for Scholarship
-            </button>
-            <button className="btn btn-outline btn-lg" style={{backgroundColor: 'white'}} onClick={() => {
-              document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-            }}>
-              Learn More
-            </button>
-          </div>
         </div>
       </section>
 
@@ -102,22 +92,25 @@ const LandingPage = () => {
       {/* Scholarship Info Section */}
       <section className="scholarship-section">
         <div className="container">
-          <h2 className="section-title text-center">Empowering the Next Generation of Medical Professionals</h2>
-          <div className="scholarship-cards">
-            <div className="scholarship-card card">
-              <div className="feature-icon"><GraduationCap size={32} /></div>
-              <h3>MBBS Scholarships</h3>
-              <p>At the moment the Trust will sponsor 2 Scholarships. The application is open to the open category students from financially poor families.</p>
-            </div>
-            <div className="scholarship-card card">
-              <div className="feature-icon"><HeartHandshake size={32} /></div>
-              <h3>Preference & Eligibility</h3>
-              <p>The Trust would prefer students from Maharashtra, at least one of them should be of Marathi Mother Tongue. Students from G.S. Medical College, Grand Medical College, Sion Hospital, and Nayar Hospital may apply.</p>
-            </div>
-            <div className="scholarship-card card">
-              <div className="feature-icon"><BookOpen size={32} /></div>
-              <h3>Commitment Expected</h3>
-              <p>Selected candidates should commit at least first 5 years of practicing medicine in India. They are also expected to volunteer in Trust activities such as medical camps in rural and tribal areas.</p>
+          <h2 className="section-title text-center">Empowering the Next Generation</h2>
+          
+          <div className="empowering-content" style={{maxWidth: '700px', margin: '0 auto', textAlign: 'left'}}>
+            <p style={{fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--primary-color)', fontWeight: 'bold'}}>VBK TRUST should read as follows:</p>
+            <ul className="activities-list" style={{marginBottom: '2rem'}}>
+              <li>Empowering the brightest medical students in India</li>
+              <li>Greening India</li>
+              <li>Promoting Marathi Language</li>
+              <li>Helping physically handicapped</li>
+            </ul>
+            
+            <p className="note-text" style={{fontWeight: 'bold', color: '#d32f2f', marginBottom: '2rem', textAlign: 'center'}}>
+              Before applying Candidates are expected to understand the ethos of the Trust. So carefully study the information about the Trust.
+            </p>
+            
+            <div className="text-center">
+              <button className="btn btn-cta btn-lg" onClick={() => navigate('/register')}>
+                Apply
+              </button>
             </div>
           </div>
         </div>

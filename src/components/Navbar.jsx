@@ -28,13 +28,11 @@ const Navbar = () => {
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/about" className="nav-link">About Us</Link>
           <Link to="/contact" className="nav-link">Contact Us</Link>
-          <Link to="/register" className="nav-link">Apply</Link>
         </div>
 
         {/* Desktop Actions */}
         <div className="navbar-actions hidden-mobile flex items-center gap-4">
           <Link to="/admin" className="nav-link" style={{fontSize: '0.85rem'}}>Admin</Link>
-          <button className="btn btn-cta" onClick={() => navigate('/register')}>Apply for Scholarship</button>
         </div>
 
         {/* Mobile Toggle */}
@@ -51,7 +49,6 @@ const Navbar = () => {
           <Link to="/contact" className="mobile-link" onClick={toggleMenu}>Contact Us</Link>
           <div className="mobile-divider"></div>
           <Link to="/admin" className="mobile-link" onClick={toggleMenu}>Admin</Link>
-          <Link to="/register" className="mobile-link btn-cta" style={{textAlign:'center', marginTop:'1rem'}} onClick={toggleMenu}>Apply for Scholarship</Link>
         </div>
       )}
     </nav>
