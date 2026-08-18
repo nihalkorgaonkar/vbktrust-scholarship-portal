@@ -78,42 +78,44 @@
 
 /* Image Gallery */
 .gallery-section {
-  padding: 4rem 0;
-  background: var(--background-light);
+  padding: 8rem 0; /* Huge white space */
+  background: white; /* Clean white background */
 }
 
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: 4rem; /* Lots of breathing room */
 }
 
 .gallery-item {
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 24px; /* Softer, rounder Apple-like corners */
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04); /* Extremely subtle shadow */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   background: white;
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
 .gallery-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
 }
 
 .gallery-item img {
   width: 100%;
-  height: 180px;
+  height: 240px; /* Slightly taller for elegance */
   object-fit: cover;
   display: block;
 }
 
 .gallery-caption {
-  padding: 1.25rem 1rem;
+  padding: 1.5rem 1rem;
   text-align: center;
-  font-size: 0.95rem;
-  color: var(--secondary-text);
-  font-weight: 500;
+  font-size: 1.05rem;
+  color: #1d1d1f; /* Apple's standard dark gray/black */
+  font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 

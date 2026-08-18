@@ -23,28 +23,16 @@ const LandingPage = () => {
         <div className="container">
           <div className="gallery-grid">
             <div className="gallery-item">
-              <img src="/images/image2.jpg" alt="Doctors treating patients" />
-              <p className="gallery-caption">Healing & Care</p>
-            </div>
-            <div className="gallery-item">
-              <img src="/images/graduation.jpg" alt="Doctors receiving degrees" />
-              <p className="gallery-caption">Medical Graduates</p>
-            </div>
-            <div className="gallery-item">
-              <img src="/images/saints.jpg" alt="Dnyaneshwar, Tukaram, Sant Eknath" />
-              <p className="gallery-caption">दुरितांचे तिमिर जावो — Pasaydan, Dnyaneshwari</p>
+              <img src="/images/image1.jpg" alt="Tree plantation" />
+              <p className="gallery-caption">Greening India</p>
             </div>
             <div className="gallery-item">
               <img src="/images/cradle.jpg" alt="Marathi baby in cradle" />
-              <p className="gallery-caption">Nurturing Marathi Culture</p>
-            </div>
-            <div className="gallery-item">
-              <img src="/images/image1.jpg" alt="Tree plantation" />
-              <p className="gallery-caption">Tree Plantation</p>
+              <p className="gallery-caption">Promoting Marathi Language</p>
             </div>
             <div className="gallery-item">
               <img src="/images/disability.jpg" alt="Helping the blind and disabled" />
-              <p className="gallery-caption">Supporting the Differently Abled</p>
+              <p className="gallery-caption">Helping physically handicapped</p>
             </div>
           </div>
         </div>
@@ -92,7 +80,7 @@ const LandingPage = () => {
       {/* Scholarship Info Section */}
       <section className="scholarship-section">
         <div className="container">
-          <h2 className="section-title text-center">Empowering the Next Generation</h2>
+          <h2 className="section-title text-center">Empowering the brightest medical students in India</h2>
           
           <div className="empowering-content" style={{maxWidth: '700px', margin: '0 auto', textAlign: 'left'}}>
             <h3 style={{fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--primary-color)', fontWeight: 'bold'}}>VBK TRUST</h3>
