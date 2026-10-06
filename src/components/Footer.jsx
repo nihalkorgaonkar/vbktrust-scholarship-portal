@@ -24,6 +24,7 @@ const Footer = () => {
             <li><Link to="/about">About Us</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
             <li><Link to="/register">Apply for Scholarship</Link></li>
+            <li><Link to="/student-records">Annual Student Records</Link></li>
           </ul>
         </div>
 

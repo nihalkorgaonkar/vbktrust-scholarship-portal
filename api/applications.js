@@ -21,8 +21,8 @@ export default async function handler(req, res) {
     const { data, error } = await supabase
       .from('applications')
       .select(`
-        id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path,
-        users ( id, full_name, email, phone_number, mother_tongue, family_occupation, neet_roll_number )
+        id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path, reason_for_scholarship,
+        users ( id, full_name, email, phone_number, gender, date_of_birth, aadhaar_number, pan_number, wards_pan_number, mother_tongue, disability_status, is_orphan, postal_address, permanent_address, family_occupation, father_annual_income, mother_annual_income, other_scholarship, other_scholarship_details, neet_roll_number, neet_rank, aadhaar_card_path, pan_card_path, wards_pan_card_path )
       `);
       
     if (error) return res.status(500).json({ error: error.message });
@@ -89,21 +89,27 @@ export default async function handler(req, res) {
     const { id, userId } = req.body;
     
     // Fetch file paths to delete them from storage
-      const { data: appData } = await supabase
-        .from('applications')
-        .select('admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path')
-        .eq('id', id)
-        .single();
+    const { data: appData } = await supabase
+      .from('applications')
+      .select(`
+        admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path,
+        users ( aadhaar_card_path, pan_card_path, wards_pan_card_path )
+      `)
+      .eq('id', id)
+      .single();
         
-      if (appData) {
-        const filesToRemove = [
-          appData.admission_letter_path,
-          appData.income_certificate_path,
-          appData.twelfth_marksheet_path,
-          appData.neet_score_path,
-          appData.writeup_document_path,
-          appData.academic_achievements_path
-        ].filter(Boolean); // Filter out nulls
+    if (appData) {
+      const filesToRemove = [
+        appData.admission_letter_path,
+        appData.income_certificate_path,
+        appData.twelfth_marksheet_path,
+        appData.neet_score_path,
+        appData.writeup_document_path,
+        appData.academic_achievements_path,
+        appData.users?.aadhaar_card_path,
+        appData.users?.pan_card_path,
+        appData.users?.wards_pan_card_path
+      ].filter(Boolean); // Filter out nulls
       
       if (filesToRemove.length > 0) {
         await supabase.storage.from('uploads').remove(filesToRemove);

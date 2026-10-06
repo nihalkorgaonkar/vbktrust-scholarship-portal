@@ -28,6 +28,7 @@ const Navbar = () => {
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/about" className="nav-link">About Us</Link>
           <Link to="/contact" className="nav-link">Contact Us</Link>
+          <Link to="/student-records" className="nav-link">Student Records</Link>
         </div>
 
         {/* Desktop Actions */}
@@ -47,6 +48,7 @@ const Navbar = () => {
           <Link to="/" className="mobile-link" onClick={toggleMenu}>Home</Link>
           <Link to="/about" className="mobile-link" onClick={toggleMenu}>About Us</Link>
           <Link to="/contact" className="mobile-link" onClick={toggleMenu}>Contact Us</Link>
+          <Link to="/student-records" className="mobile-link" onClick={toggleMenu}>Student Records</Link>
           <div className="mobile-divider"></div>
           <Link to="/admin" className="mobile-link" onClick={toggleMenu}>Admin</Link>
         </div>

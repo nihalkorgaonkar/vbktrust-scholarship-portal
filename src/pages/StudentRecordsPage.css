@@ -1,0 +1,440 @@
+/* ===== STUDENT RECORDS PAGE - Medical Clean Aesthetics ===== */
+
+.student-records-page {
+  padding: 4rem 1.5rem 6rem;
+  min-height: calc(100vh - 72px);
+  background-color: #eef3f9;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' opacity='0.04'%3E%3Cg fill='none' stroke='%23054479' stroke-width='4'%3E%3Cellipse cx='60' cy='80' rx='30' ry='20'/%3E%3Cpath d='M60 100 Q60 150 110 150'/%3E%3Ccircle cx='115' cy='155' r='12' stroke-width='5'/%3E%3Cline x1='38' y1='72' x2='30' y2='55'/%3E%3Cline x1='82' y1='72' x2='90' y2='55'/%3E%3Ccircle cx='30' cy='50' r='5' fill='%23054479'/%3E%3Ccircle cx='90' cy='50' r='5' fill='%23054479'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(160deg, #eef3f9 0%, #dde9f5 100%);
+  background-repeat: repeat;
+  background-size: 220px 220px, 100% 100%;
+}
+
+.records-hero {
+  max-width: 780px;
+  margin: 0 auto 3rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(5, 68, 121, 0.08);
+  color: var(--primary-color);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.records-hero .hero-title {
+  font-size: 2.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.records-hero .hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.records-hero .hero-desc {
+  font-size: 0.95rem;
+  color: var(--secondary-text);
+  line-height: 1.65;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ── Verification Card ── */
+.verification-card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 2.75rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 16px 48px rgba(5, 68, 121, 0.09);
+  background: white;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.card-header {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.icon-shield {
+  color: var(--secondary-color);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.card-header h2 {
+  font-size: 1.35rem;
+  color: var(--primary-color);
+  margin-bottom: 0.35rem;
+}
+
+.card-header p {
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-block {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.new-applicant-note {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0;
+  font-size: inherit;
+}
+.link-button:hover {
+  text-decoration: underline;
+}
+
+/* ── Alerts ── */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 780px;
+  margin: 0 auto 1.5rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.alert-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.alert-success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+/* ── Dashboard Layout ── */
+.records-dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.student-profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(5, 68, 121, 0.07);
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.student-profile-main {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.student-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(5, 68, 121, 0.25);
+}
+
+.student-details h2 {
+  font-size: 1.35rem;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.student-meta {
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+  margin-bottom: 0.15rem;
+}
+
+.student-email {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ── Action Bar ── */
+.records-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.records-action-bar h3 {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.2rem;
+}
+
+.action-subtitle {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  margin: 0;
+}
+
+/* ── New Record Card ── */
+.new-record-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2.25rem;
+  box-shadow: 0 12px 40px rgba(5, 68, 121, 0.08);
+  margin-bottom: 2.5rem;
+  border-top: 4px solid var(--accent-color);
+}
+
+.card-header-simple {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.card-header-simple h4 {
+  font-size: 1.15rem;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.icon-plus {
+  color: var(--secondary-color);
+}
+
+.form-instruction {
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+  margin-bottom: 1.75rem;
+}
+
+.upload-zone-compact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+}
+.upload-zone-compact:hover {
+  border-color: var(--secondary-color);
+  background: rgba(75, 141, 242, 0.02);
+}
+.upload-zone-compact.success {
+  border-color: var(--success-color);
+  background: rgba(16, 185, 129, 0.03);
+  color: var(--success-color);
+  border-style: solid;
+}
+
+.form-actions-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* ── Timeline / Historical Records ── */
+.records-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.record-card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.record-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(5, 68, 121, 0.08);
+}
+
+.record-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.record-year-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(5, 68, 121, 0.08);
+  color: var(--primary-color);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.record-study-year {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin: 0;
+  font-weight: 700;
+}
+
+.record-percentage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.record-body {
+  margin-bottom: 1rem;
+}
+
+.record-detail {
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+  margin-bottom: 0.3rem;
+}
+
+.record-remarks {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: #475569;
+  background: #f8fafc;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  border-left: 3px solid var(--secondary-color);
+  margin-top: 0.5rem;
+}
+
+.record-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.record-timestamp {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ── Empty State ── */
+.empty-records {
+  padding: 3.5rem 2rem;
+  background: white;
+  border-radius: 16px;
+  color: var(--secondary-text);
+}
+
+.icon-empty {
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.empty-records h3 {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.empty-records p {
+  font-size: 0.9rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 680px) {
+  .student-profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .profile-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .record-percentage {
+    margin-left: 0;
+  }
+  .records-action-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .records-action-bar .btn {
+    width: 100%;
+  }
+}
