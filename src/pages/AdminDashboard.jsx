@@ -2,19 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FileText, CheckCircle, XCircle, Clock, Search, Download,
-  Trash2, ChevronDown, ChevronUp, Plus, BookOpen, Upload
+  Trash2, ChevronDown, ChevronUp, Plus, BookOpen, Upload, User,
+  MapPin, IndianRupee, ShieldCheck, GraduationCap, Eye
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import './AdminDashboard.css';
 
 // ─── Annual Records Sub-Panel ──────────────────────────────────────────────
 const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
-  const [records, setRecords]   = useState([]);
-  const [loading, setLoading]   = useState(false);
-  const [form, setForm]         = useState({ academic_year: '', year_of_study: '', semester: '', percentage: '', grade: '', remarks: '' });
+  const [records, setRecords]     = useState([]);
+  const [loading, setLoading]     = useState(false);
+  const [form, setForm]           = useState({ academic_year: '', year_of_study: '', semester: '', examination_details: '', percentage: '', grade: '', remarks: '' });
   const [uploading, setUploading] = useState(false);
   const [marksheetFile, setMarksheetFile] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm]   = useState(false);
   const marksheetRef = useRef(null);
 
   const fetchRecords = async () => {
@@ -46,7 +47,7 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ student_id: app.user_id, ...form, marksheet_path: marksheetPath })
       });
-      setForm({ academic_year: '', year_of_study: '', semester: '', percentage: '', grade: '', remarks: '' });
+      setForm({ academic_year: '', year_of_study: '', semester: '', examination_details: '', percentage: '', grade: '', remarks: '' });
       setMarksheetFile(null);
       setShowForm(false);
       fetchRecords();
@@ -68,9 +69,9 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
   return (
     <div className="records-panel">
       <div className="records-panel-header">
-        <div className="records-title"><BookOpen size={16} /> Academic Records ({records.length})</div>
+        <div className="records-title"><BookOpen size={16} /> Academic Records History ({records.length})</div>
         <button className="btn-sm btn-approve" onClick={() => setShowForm(v => !v)}>
-          <Plus size={14} /> Add Year
+          <Plus size={14} /> Add Year's Record
         </button>
       </div>
 
@@ -82,24 +83,26 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
             <select className="form-input" required value={form.year_of_study}
               onChange={e => setForm(f => ({ ...f, year_of_study: e.target.value }))}>
               <option value="">Year of Study</option>
-              {['1st Year MBBS', '2nd Year MBBS', '3rd Year MBBS (Part I)', '3rd Year MBBS (Part II)', 'Final Year MBBS'].map(y => (
+              {['1st Year MBBS', '2nd Year MBBS', '3rd Year MBBS (Part I)', '3rd Year MBBS (Part II)', 'Final Year MBBS', 'Internship'].map(y => (
                 <option key={y}>{y}</option>
               ))}
             </select>
-            <input className="form-input" placeholder="Semester (optional)"
+            <input className="form-input" placeholder="Semester / Term"
               value={form.semester} onChange={e => setForm(f => ({ ...f, semester: e.target.value }))} />
+            <input className="form-input" placeholder="Exam Details (e.g. MUHS Winter 2024)"
+              value={form.examination_details} onChange={e => setForm(f => ({ ...f, examination_details: e.target.value }))} />
           </div>
           <div className="rec-form-row">
-            <input className="form-input" placeholder="Percentage / Marks" type="number" min="0" max="100"
+            <input className="form-input" placeholder="Percentage (e.g. 74.5)" type="number" step="0.01" min="0" max="100"
               value={form.percentage} onChange={e => setForm(f => ({ ...f, percentage: e.target.value }))} />
-            <input className="form-input" placeholder="Grade / Result (e.g. Pass, Distinction)"
+            <input className="form-input" placeholder="Grade / Result (e.g. Distinction, Pass)"
               value={form.grade} onChange={e => setForm(f => ({ ...f, grade: e.target.value }))} />
-            <input className="form-input" placeholder="Remarks (optional)"
+            <input className="form-input" placeholder="Achievements / Remarks"
               value={form.remarks} onChange={e => setForm(f => ({ ...f, remarks: e.target.value }))} />
           </div>
           <div className="rec-form-row" style={{ alignItems: 'center' }}>
             <button type="button" className="upload-btn" onClick={() => marksheetRef.current.click()}>
-              <Upload size={14} /> {marksheetFile ? marksheetFile.name : 'Upload Marksheet (optional)'}
+              <Upload size={14} /> {marksheetFile ? marksheetFile.name : 'Upload Marksheet (PDF/JPG)'}
             </button>
             <input ref={marksheetRef} type="file" style={{ display: 'none' }} accept=".pdf,.jpg,.jpeg,.png"
               onChange={e => setMarksheetFile(e.target.files?.[0] || null)} />
@@ -112,7 +115,7 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
       )}
 
       {loading ? <p className="rec-loading">Loading records…</p> : records.length === 0
-        ? <p className="rec-empty">No annual records yet.</p>
+        ? <p className="rec-empty">No annual records submitted yet.</p>
         : (
           <table className="rec-table">
             <thead>
@@ -120,6 +123,7 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
                 <th>Academic Year</th>
                 <th>Year of Study</th>
                 <th>Semester</th>
+                <th>Exam</th>
                 <th>%</th>
                 <th>Grade</th>
                 <th>Remarks</th>
@@ -130,10 +134,11 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
             <tbody>
               {records.map(r => (
                 <tr key={r.id}>
-                  <td>{r.academic_year}</td>
+                  <td><strong>{r.academic_year}</strong></td>
                   <td>{r.year_of_study}</td>
                   <td>{r.semester || '—'}</td>
-                  <td>{r.percentage ?? '—'}</td>
+                  <td>{r.examination_details || '—'}</td>
+                  <td>{r.percentage ? `${r.percentage}%` : '—'}</td>
                   <td>{r.grade || '—'}</td>
                   <td>{r.remarks || '—'}</td>
                   <td>
@@ -155,13 +160,141 @@ const AnnualRecordsPanel = ({ app, token, getFileUrl }) => {
   );
 };
 
+// ─── Comprehensive Student Profile Panel ──────────────────────────────────
+const StudentFullProfile = ({ app, token, getFileUrl }) => {
+  const [activeTab, setActiveTab] = useState('details');
+
+  const docList = [
+    { key: app.admission_letter_path, label: 'Medical Admission Letter', required: true },
+    { key: app.income_certificate_path, label: 'Family Income Certificate', required: true },
+    { key: app.twelfth_marksheet_path, label: '12th Marksheet', required: true },
+    { key: app.neet_score_path, label: 'NEET Scorecard', required: true },
+    { key: app.writeup_document_path, label: 'Statement of Purpose (Write-up)', required: true },
+    { key: app.academic_achievements_path, label: 'Academic Achievements Document', required: true },
+    { key: app.aadhaar_card_path, label: 'Aadhaar Card Document', required: true },
+    { key: app.pan_card_path, label: 'PAN Card Document', required: false },
+    { key: app.wards_pan_card_path, label: "Ward's / Parent's PAN Card", required: false },
+  ];
+
+  return (
+    <div className="student-expanded-card">
+      <div className="expanded-tabs">
+        <button
+          className={`tab-btn ${activeTab === 'details' ? 'active' : ''}`}
+          onClick={() => setActiveTab('details')}
+        >
+          <User size={15} /> Full Application Details &amp; Profile
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'records' ? 'active' : ''}`}
+          onClick={() => setActiveTab('records')}
+        >
+          <GraduationCap size={15} /> Annual Academic Records
+        </button>
+      </div>
+
+      {activeTab === 'details' ? (
+        <div className="expanded-body">
+          <div className="details-grid">
+
+            {/* 1. Personal & Contact */}
+            <div className="details-card">
+              <h5><User size={15} /> Personal &amp; Identification</h5>
+              <div className="detail-item"><span>Full Legal Name:</span> <strong>{app.full_name || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Email Address:</span> <strong>{app.email || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Phone Number:</span> <strong>{app.phone_number || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Gender:</span> <strong>{app.gender || 'Not specified'}</strong></div>
+              <div className="detail-item"><span>Date of Birth:</span> <strong>{app.date_of_birth || 'Not specified'}</strong></div>
+              <div className="detail-item"><span>Mother Tongue:</span> <strong>{app.mother_tongue || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Disability Status:</span> <strong>{app.disability_status || 'None / Not applicable'}</strong></div>
+              <div className="detail-item"><span>Orphan Status:</span> <strong>{app.is_orphan ? 'Yes' : 'No'}</strong></div>
+            </div>
+
+            {/* 2. Identity Cards */}
+            <div className="details-card">
+              <h5><ShieldCheck size={15} /> Government ID Numbers</h5>
+              <div className="detail-item"><span>Aadhaar Card Number:</span> <strong>{app.aadhaar_number || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Student PAN Number:</span> <strong>{app.pan_number || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Ward's / Parent's PAN:</span> <strong>{app.wards_pan_number || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Family Occupation:</span> <strong>{app.family_occupation || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Father's Annual Income:</span> <strong>₹{app.father_annual_income ? Number(app.father_annual_income).toLocaleString('en-IN') : '0'}</strong></div>
+              <div className="detail-item"><span>Mother's Annual Income:</span> <strong>₹{app.mother_annual_income ? Number(app.mother_annual_income).toLocaleString('en-IN') : '0'}</strong></div>
+              <div className="detail-item"><span>Receiving Other Scholarship:</span> <strong>{app.other_scholarship ? 'Yes' : 'No'}</strong></div>
+              {app.other_scholarship && (
+                <div className="detail-item"><span>Other Scholarship Details:</span> <strong>{app.other_scholarship_details}</strong></div>
+              )}
+            </div>
+
+            {/* 3. Addresses */}
+            <div className="details-card">
+              <h5><MapPin size={15} /> Residential Addresses</h5>
+              <div className="detail-item address-block">
+                <span>Postal / Correspondence Address:</span>
+                <p>{app.postal_address || 'N/A'}</p>
+              </div>
+              <div className="detail-item address-block">
+                <span>Permanent Address:</span>
+                <p>{app.permanent_address || 'N/A'}</p>
+              </div>
+            </div>
+
+            {/* 4. Academic Details */}
+            <div className="details-card">
+              <h5><GraduationCap size={15} /> NEET &amp; Medical College</h5>
+              <div className="detail-item"><span>College Name:</span> <strong>{app.college_name || 'N/A'}</strong></div>
+              <div className="detail-item"><span>NEET Roll Number:</span> <strong>{app.neet_roll_number || 'N/A'}</strong></div>
+              <div className="detail-item"><span>NEET All India Rank:</span> <strong>{app.neet_rank || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Application Year:</span> <strong>{app.application_year || 'N/A'}</strong></div>
+              <div className="detail-item"><span>Current Status:</span> <strong>{app.status}</strong></div>
+            </div>
+
+          </div>
+
+          {/* Reason for Scholarship / Write-up */}
+          {app.reason_for_scholarship && (
+            <div className="statement-box">
+              <h5>Why should the Trust offer this Scholarship? (Student's Statement)</h5>
+              <p>"{app.reason_for_scholarship}"</p>
+            </div>
+          )}
+
+          {/* Uploaded Documents Grid */}
+          <div className="documents-section">
+            <h5>Uploaded Student Documents</h5>
+            <div className="doc-grid">
+              {docList.map(doc => (
+                <div key={doc.label} className={`doc-card ${doc.key ? 'available' : 'missing'}`}>
+                  <FileText size={22} className="doc-icon" />
+                  <div className="doc-meta">
+                    <span className="doc-name">{doc.label}</span>
+                    <span className="doc-status">{doc.key ? 'Uploaded' : (doc.required ? 'Missing' : 'Not Provided')}</span>
+                  </div>
+                  {doc.key ? (
+                    <a href={getFileUrl(doc.key)} target="_blank" rel="noreferrer" className="btn-sm btn-approve doc-link">
+                      <Eye size={13} /> View
+                    </a>
+                  ) : (
+                    <span className="doc-link disabled">—</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <AnnualRecordsPanel app={app} token={token} getFileUrl={getFileUrl} />
+      )}
+    </div>
+  );
+};
+
 // ─── Main Admin Dashboard ──────────────────────────────────────────────────
 const AdminDashboard = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading]           = useState(true);
   const [searchTerm, setSearchTerm]     = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
-  const [expanded, setExpanded]         = useState(null); // row id for records panel
+  const [expanded, setExpanded]         = useState(null); // id of expanded application
   const navigate = useNavigate();
 
   const token = () => localStorage.getItem('adminToken');
@@ -176,7 +309,7 @@ const AdminDashboard = () => {
       });
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) navigate('/admin');
-        throw new Error('Failed to fetch');
+        throw new Error('Failed to fetch applications');
       }
       const data = await response.json();
       const formattedData = data.map(app => ({
@@ -216,7 +349,7 @@ const AdminDashboard = () => {
   };
 
   const handleDelete = async (id, userId) => {
-    if (!window.confirm('Delete this application and all its files? This cannot be undone.')) return;
+    if (!window.confirm('Delete this application and all associated student documents? This cannot be undone.')) return;
     try {
       const res = await fetch('/api/applications', {
         method: 'DELETE',
@@ -290,8 +423,9 @@ const AdminDashboard = () => {
   const filteredApplications = applications.filter(app => {
     const name = (app.full_name || '').toLowerCase();
     const roll = (app.neet_roll_number || '').toLowerCase();
+    const college = (app.college_name || '').toLowerCase();
     const q    = searchTerm.toLowerCase();
-    const matchesSearch = name.includes(q) || roll.includes(q);
+    const matchesSearch = name.includes(q) || roll.includes(q) || college.includes(q);
     const matchesFilter = filterStatus === 'All' || app.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
@@ -301,17 +435,17 @@ const AdminDashboard = () => {
       <div className="dashboard-header flex justify-between items-center mb-6">
         <div>
           <h2>Scholarship Applications</h2>
-          <p className="subtitle">Review and manage MBBS scholarship requests — Nair Hospital College &amp; partner colleges.</p>
+          <p className="subtitle">Review and manage MBBS scholarship requests — Nair College &amp; partner colleges.</p>
         </div>
         <button className="btn btn-outline" onClick={() => { localStorage.removeItem('adminToken'); navigate('/admin'); }}>
-          Logout
+          Logout Admin
         </button>
       </div>
 
       <div className="admin-controls flex gap-4 mb-6 items-center">
         <div className="search-bar flex-1" style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f8fafc', padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
           <Search size={20} style={{ color: '#94a3b8', marginRight: '0.5rem' }} />
-          <input type="text" placeholder="Search by name or NEET roll number…"
+          <input type="text" placeholder="Search by applicant name, NEET roll number, or college…"
             className="flex-1" style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%' }}
             value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
         </div>
@@ -334,8 +468,8 @@ const AdminDashboard = () => {
               <tr>
                 <th>Applicant</th>
                 <th>Contact</th>
-                <th>NEET</th>
-                <th>College</th>
+                <th>NEET Details</th>
+                <th>Medical College</th>
                 <th>Documents</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -343,7 +477,7 @@ const AdminDashboard = () => {
             </thead>
             <tbody>
               {filteredApplications.length === 0 ? (
-                <tr><td colSpan="7" className="text-center py-4">No applications found.</td></tr>
+                <tr><td colSpan="7" className="text-center py-4">No applications found matching your criteria.</td></tr>
               ) : filteredApplications.map(app => (
                 <React.Fragment key={app.id}>
                   <tr>
@@ -362,11 +496,6 @@ const AdminDashboard = () => {
                       {app.other_scholarship && (
                         <div className="text-sm text-secondary">Other Scholarship: {app.other_scholarship_details || 'Yes'}</div>
                       )}
-                      {app.reason_for_scholarship && (
-                        <div className="text-sm text-secondary" style={{ marginTop: '0.35rem', fontStyle: 'italic', maxWidth: '280px', background: '#f8fafc', padding: '0.3rem 0.5rem', borderRadius: '4px', borderLeft: '2px solid var(--secondary-color)' }}>
-                          <strong>Reason:</strong> "{app.reason_for_scholarship.length > 100 ? app.reason_for_scholarship.slice(0, 100) + '…' : app.reason_for_scholarship}"
-                        </div>
-                      )}
                     </td>
                     <td>
                       <div className="text-sm">{app.email}</div>
@@ -374,7 +503,7 @@ const AdminDashboard = () => {
                     </td>
                     <td>
                       <div>{app.neet_roll_number}</div>
-                      {app.neet_rank && <div className="text-sm text-secondary">Rank: {app.neet_rank}</div>}
+                      {app.neet_rank && <div className="text-sm text-secondary">AIR Rank: {app.neet_rank}</div>}
                     </td>
                     <td>{app.college_name}</td>
                     <td>
@@ -411,10 +540,12 @@ const AdminDashboard = () => {
                         <button className="btn-sm btn-reject"
                           onClick={() => handleStatusChange(app.id, 'Rejected')}
                           disabled={app.status === 'Rejected'}>Reject</button>
-                        <button className="btn-icon"
-                          title={expanded === app.id ? 'Hide Records' : 'View Annual Records'}
+                        <button
+                          className={`btn-sm ${expanded === app.id ? 'btn-cta' : 'btn-outline'}`}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}
+                          title="View Full Student Details"
                           onClick={() => setExpanded(expanded === app.id ? null : app.id)}>
-                          {expanded === app.id ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+                          <Eye size={14} /> {expanded === app.id ? 'Hide Details' : 'View Full Details'}
                         </button>
                         <button className="btn-icon" title="Delete Application"
                           style={{ color: '#ef4444' }}
@@ -427,7 +558,7 @@ const AdminDashboard = () => {
                   {expanded === app.id && (
                     <tr className="records-row">
                       <td colSpan="7">
-                        <AnnualRecordsPanel app={app} token={token()} getFileUrl={getFileUrl} />
+                        <StudentFullProfile app={app} token={token()} getFileUrl={getFileUrl} />
                       </td>
                     </tr>
                   )}

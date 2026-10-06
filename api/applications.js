@@ -18,14 +18,32 @@ export default async function handler(req, res) {
   );
 
   if (req.method === 'GET') {
-    const { data, error } = await supabase
+    // Attempt full query with all new columns
+    let { data, error } = await supabase
       .from('applications')
       .select(`
         id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path, reason_for_scholarship,
-        users ( id, full_name, email, phone_number, gender, date_of_birth, aadhaar_number, pan_number, wards_pan_number, mother_tongue, disability_status, is_orphan, postal_address, permanent_address, family_occupation, father_annual_income, mother_annual_income, other_scholarship, other_scholarship_details, neet_roll_number, neet_rank, aadhaar_card_path, pan_card_path, wards_pan_card_path )
-      `);
-      
-    if (error) return res.status(500).json({ error: error.message });
+        users ( * )
+      `)
+      .order('created_at', { ascending: false });
+
+    // Fallback if reason_for_scholarship is not yet in applications schema cache
+    if (error && error.message?.includes('reason_for_scholarship')) {
+      const fallback = await supabase
+        .from('applications')
+        .select(`
+          id, status, college_name, application_year, admission_letter_path, income_certificate_path, twelfth_marksheet_path, neet_score_path, writeup_document_path, academic_achievements_path,
+          users ( * )
+        `)
+        .order('created_at', { ascending: false });
+
+      if (fallback.error) return res.status(500).json({ error: fallback.error.message });
+      data = fallback.data;
+      error = null;
+    } else if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
     return res.status(200).json(data);
   }
 

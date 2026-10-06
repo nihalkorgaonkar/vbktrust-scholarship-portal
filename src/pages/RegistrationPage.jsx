@@ -166,7 +166,7 @@ const RegistrationPage = () => {
       const finalLanguage = formData.motherTongue === 'Other' ? formData.otherLanguage : formData.motherTongue;
 
       // Insert User
-      const { error: userError } = await supabase.from('users').insert([{
+      let userPayload = {
         id: studentId,
         full_name: formData.fullName,
         email: formData.email,
@@ -182,26 +182,44 @@ const RegistrationPage = () => {
         postal_address: formData.postalAddress,
         permanent_address: formData.permanentAddress,
         family_occupation: formData.familyOccupation,
-        father_annual_income: formData.fatherAnnualIncome || null,
-        mother_annual_income: formData.motherAnnualIncome || null,
+        father_annual_income: formData.fatherAnnualIncome ? parseFloat(formData.fatherAnnualIncome) : null,
+        mother_annual_income: formData.motherAnnualIncome ? parseFloat(formData.motherAnnualIncome) : null,
         other_scholarship: formData.otherScholarship === 'Yes',
         other_scholarship_details: formData.otherScholarshipDetails || null,
         neet_roll_number: formData.neetRollNumber,
-        neet_rank: formData.neetRank || null,
+        neet_rank: formData.neetRank ? parseInt(formData.neetRank, 10) : null,
         aadhaar_card_path: aadhaarCardPath,
         pan_card_path: panCardPath || null,
         wards_pan_card_path: wardsPanCardPath || null
-      }]);
+      };
 
-      if (userError) {
-        if (userError.code === '23505') throw new Error('This email address is already registered.');
-        throw userError;
+      const userInsertRes = await supabase.from('users').insert([userPayload]);
+      if (userInsertRes.error) {
+        if (userInsertRes.error.code === '23505') throw new Error('This email address is already registered.');
+        if (userInsertRes.error.message?.includes('schema cache') || userInsertRes.error.message?.includes('column')) {
+          console.warn('Retrying user insert with baseline columns:', userInsertRes.error.message);
+          const baselinePayload = {
+            id: studentId,
+            full_name: formData.fullName,
+            email: formData.email,
+            phone_number: formData.phoneNumber,
+            mother_tongue: finalLanguage,
+            postal_address: formData.postalAddress,
+            permanent_address: formData.permanentAddress,
+            family_occupation: formData.familyOccupation,
+            neet_roll_number: formData.neetRollNumber
+          };
+          const retryRes = await supabase.from('users').insert([baselinePayload]);
+          if (retryRes.error) throw retryRes.error;
+        } else {
+          throw userInsertRes.error;
+        }
       }
 
       const finalCollegeName = formData.collegeName === 'Other' ? formData.otherCollegeName : formData.collegeName;
 
       // Insert Application
-      const { error: appError } = await supabase.from('applications').insert([{
+      let appPayload = {
         student_id: studentId,
         college_name: finalCollegeName,
         application_year: new Date().getFullYear().toString(),
@@ -213,9 +231,19 @@ const RegistrationPage = () => {
         academic_achievements_path: academicAchievementsPath,
         reason_for_scholarship: formData.reasonForScholarship,
         status: 'Pending'
-      }]);
+      };
 
-      if (appError) throw appError;
+      const appInsertRes = await supabase.from('applications').insert([appPayload]);
+      if (appInsertRes.error) {
+        if (appInsertRes.error.message?.includes('reason_for_scholarship') || appInsertRes.error.message?.includes('schema cache')) {
+          console.warn('Retrying application insert without reason_for_scholarship:', appInsertRes.error.message);
+          delete appPayload.reason_for_scholarship;
+          const retryAppRes = await supabase.from('applications').insert([appPayload]);
+          if (retryAppRes.error) throw retryAppRes.error;
+        } else {
+          throw appInsertRes.error;
+        }
+      }
 
       // Send confirmation email
       fetch('/api/send-email', {
